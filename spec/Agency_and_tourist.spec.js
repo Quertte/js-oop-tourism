@@ -2,7 +2,7 @@ const Tourist = require('../Tourist');
 const Tour = require('../Tour');
 const Agency = require('../Agency');
 
-describe('Agency and tourist testing', () => {
+describe('Тестирование турагенства', () => {
   let turkey; let egypt; let india; let thailand; let agency;
   const max = new Tourist('Max', 32);
   const helen = new Tourist('Helen', 28);
@@ -14,52 +14,52 @@ describe('Agency and tourist testing', () => {
     agency = new Agency(50000, [turkey, egypt, india, thailand]);
   });
 
-  describe('function availableToursCount', () => {
-    it('returns the number of tours available to buy', () => {
+  describe('availableToursCount', () => {
+    it('возвращает количество доступных к покупке туров', () => {
       expect(agency.availableToursCount()).toEqual(4);
     });
   });
 
-  describe('function findTour', () => {
-    describe('when the tour available', () => {
-      it('returns the tour user interested in', () => {
+  describe('findTour', () => {
+    describe('если находится тур по названию - вернуть его', () => {
+      it('возвращает интересующий туриста тур', () => {
         expect(agency.findTour('India')).toEqual(india);
       });
     });
 
-    describe('when the tour is not available', () => {
-      it('returns undefined', () => {
+    describe('поиск тура в страну, которой нет в агенстве', () => {
+      it('если тура в желаемую страну нет, то вернуть undefined', () => {
         expect(agency.findTour('Brazil')).toBeUndefined();
       });
     });
   });
 
-  describe('tourist trying to buy a tour and agency to sell it', () => {
-    describe('agency tries to sell a tour and it is not available', () => {
+  describe('турист пробует купить тур, а агенство продать', () => {
+    describe('агенство пытается продать тур(sell), в страну, которой нет в списке доступных', () => {
       it('returns undefined', () => {
         expect(agency.sell('Brazil')).toBeUndefined();
       });
     });
 
-    describe('tourist is trying to but a tour', () => {
-      it('returns true when tour is available and transaction complete', () => {
+    describe('турист пробует купить тур (buy)', () => {
+      it('возвращает true если тур найден в агенстве и продан', () => {
         expect(max.buy('Thailand', agency)).toEqual(true);
       });
-      it('returns false when tour is unavailable and can not be sold', () => {
-        expect(max.buy('Thailand', agency)).toEqual(true);
+      it('возвращает false если тур не найден и не может быть продан', () => {
+        expect(max.buy('Colombia', agency)).toEqual(false);
       });
     });
 
-    describe('when a tourist buying a tour', () => {
+    describe('турист покупает тур', () => {
       beforeEach(() => {
         max.buy('Thailand', agency);
         helen.buy('Maldives', agency);
       });
 
-      it('tourist become an owner of tour if it is available', () => {
+      it('турист становится владельцем существующего тура', () => {
         expect(max.tours).toContain(thailand);
       });
-      it('tourist cant buy an unavailable tour and obtains nothing', () => {
+      it('у туриста нет туров, которые он не купил', () => {
         expect(helen.tours).not.toContain(thailand);
       });
     });

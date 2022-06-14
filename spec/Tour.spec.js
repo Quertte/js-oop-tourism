@@ -6,11 +6,11 @@ describe('Tour', () => {
     turkey = new Tour('Turkey', 70000);
   });
 
-  it('has a name', () => {
+  it('у тура в страну есть название', () => {
     expect(turkey.country).toEqual('Turkey');
   });
 
-  it('has an age as described', () => {
+  it('у тура в страну есть цена', () => {
     expect(turkey.price).toEqual(70000);
   });
 });

@@ -6,14 +6,14 @@ describe('Tourist', () => {
     amelia = new Tourist('Amelia', 25);
   });
 
-  it('has a name', () => {
+  it('у туриста есть имя', () => {
     expect(amelia.name).toEqual('Amelia');
   });
 
-  it('has an age as described', () => {
+  it('у туриста устанавливается указанный возраст', () => {
     expect(amelia.age).toEqual(25);
   });
-  it('has an empty list(array) of tours', () => {
+  it('изначально у туриста нет купленных туров', () => {
     expect(amelia.tours).toEqual([]);
   });
 });
